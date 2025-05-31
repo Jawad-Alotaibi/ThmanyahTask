@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search Results</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <h2 class="mb-4">🔍 Results for "<span th:text="${term}"></span>"</h2>
+    <a href="/" class="btn btn-outline-secondary mb-3">← New Search</a>
+
+    <div class="row" th:if="${results.size() > 0}">
+        <div class="col-md-4 mb-4" th:each="podcast : ${results}">
+            <div class="card h-100 shadow-sm">
+                <img th:src="${podcast.artworkUrl600}" class="card-img-top" alt="Podcast Cover">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${podcast.trackName}">Podcast Name</h5>
+                    <p class="card-text"><strong>Artist:</strong> <span th:text="${podcast.artistName}">Artist Name</span></p>
+                    <p class="card-text"><strong>Genre:</strong> <span th:text="${podcast.primaryGenreName}">Genre</span></p>
+                    <a th:href="${podcast.feedUrl}" class="btn btn-sm btn-outline-primary" target="_blank">Visit Feed</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${results.size() == 0}" class="alert alert-warning text-center mt-4">
+        No results found. Try a different term.
+    </div>
+</div>
+</body>
+</html>
